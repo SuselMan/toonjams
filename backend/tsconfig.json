@@ -12,9 +12,11 @@
     "resolveJsonModule": true,
     "baseUrl": "./src",
     "paths": {
-      "@ctrls/*": ["controllers/*"],
-      "@schemas/*": ["schemas/*"],
-      "@config/*": ["config/*"]
+      "@front/*": ["../frontend/dist"],
+      "@types/*": ["types/*"],
+      "@routes/*": ["routes/*"],
+      "@entities/*": ["entities/*"],
+      "@actions/*": ["dbActions/*"]
     },
     "typeRoots": ["./src/@types", "./node_modules/@types"]
   },

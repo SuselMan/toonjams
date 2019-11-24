@@ -2,8 +2,14 @@ import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
-import routes from './routes';
+import Routes from './routes/Routes';
 import config from './config/config.json';
+
+import path from 'path';
+// @ts-ignore
+global.appRoot = path.resolve(__dirname);
+// @ts-ignore
+global.fronendRoot = path.resolve(__dirname + '../../../frontend/dist');
 
 class App {
     public express: express.Application;
@@ -28,14 +34,14 @@ class App {
         this.express.use((err: any, req: any, res: any, next: any) => {
             const response = {
                 errors: [],
-                message: err.message && req.polyglot.t(err.message),
+                message: err.message,
                 status: err.status || 400,
-            }
+            };
 
             if (err.errors && Array.isArray(err.errors)) {
                 response.errors =
                     err.inner
-                        .map(({ path, message }: { path: string, message: object }) => ({ [path]: req.polyglot.t(message) }))
+                        .map(({ path, message }: { path: string, message: object }) => ({ [path]: message }))
             }
 
             res.status(response.status).json(response)
@@ -47,11 +53,14 @@ class App {
     }
 
     private database() {
-        mongoose.connect(`mongodb://${config.db.host}:${config.db.port}/${config.db.name}`);
+        mongoose.connect(`mongodb://${config.db.host}:${config.db.port}/${config.db.name}`)
+            .then(() => {
+                console.log(`Connected to db ${config.db.host}:${config.db.port}/${config.db.name}`)
+            });
     }
 
     private routes() {
-        this.express.use(routes)
+        new Routes(this.express);
     }
 }
 const app = new App().express;
@@ -59,5 +68,6 @@ const app = new App().express;
 app.listen(config.serverPort, function() {
     console.info(`Server is up and running on port ${config.serverPort}`);
 });
+
 
 export default app

@@ -1,8 +1,8 @@
 {
   "apiPrefix": "toonjams",
-  "serverPort": "80",
+  "serverPort": "4000",
   "db":{
-    "name": "toonJams",
+    "name": "toonjams",
     "sessions": "sessions",
     "host": "localhost",
     "port": 27017
