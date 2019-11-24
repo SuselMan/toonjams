@@ -10,7 +10,7 @@
 		"build:prod": "webpack --mode production --config webpack.config.js --progress --color",
 		"bundleanalyze": "npm run build:prod -- --env.config=analyze"
 	},
-	"author": "Ilya Agapov / Ilya Pavluhin",
+	"author": "Ilya Agapov / Ilya Pavlukhin",
 	"license": "ISC",
 	"dependencies": {
 		"react": "^16.12.0",
