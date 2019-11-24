@@ -1,0 +1,31 @@
+{
+	"name": "toon-jams",
+	"version": "1.0.0",
+	"description": "ToonJams Backend",
+	"main": "index.js",
+	"scripts": {
+		"lint": "tslint 'src/**/*.{ts,tsx}'",
+		"build:prod": "node -r ./tsconfig-paths-bootstrap.js -r dotenv/config dist/start.js dotenv_config_path=.env.production",
+		"start": "nodemon",
+		"prebuild:prod": "rm -rf dist && tsc"
+	},
+	"author": "Ilya Agapov / Ilya Pavlukhin",
+	"license": "MIT",
+	"dependencies": {
+		"@types/yup": "^0.26.24",
+		"body-parser": "^1.19.0",
+		"express": "^4.17.1",
+		"mongoose": "^5.7.12"
+	},
+	"devDependencies": {
+		"@types/express": "^4.17.2",
+		"@types/mongoose": "^5.5.32",
+		"@types/node": "^12.12.12",
+		"nodemon": "^2.0.1",
+		"ts-node": "^8.5.2",
+		"tsconfig-paths": "^3.9.0",
+		"tslint": "^5.20.1",
+		"typescript": "^3.7.2",
+		"typescript-tslint-plugin": "^0.5.5"
+	}
+}
