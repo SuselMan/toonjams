@@ -1,4 +1,11 @@
 # Animation jams
+### Frontend:
+##### Stack:
+1. TypeScript
+2. React
+3. Mobx
+4. Styled Components
+5. React router
 
 ### Backend:
 ##### Stack:
