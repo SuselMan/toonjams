@@ -12,6 +12,8 @@
 	"author": "Ilya Agapov / Ilya Pavlukhin",
 	"license": "ISC",
 	"dependencies": {
+		"mobx": "^5.15.0",
+		"mobx-react": "^6.1.4",
 		"react": "^16.12.0",
 		"react-dom": "^16.12.0",
 		"react-router-dom": "^5.1.2",
