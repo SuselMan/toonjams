@@ -14,34 +14,32 @@ import { lazy } from 'utils/lazy';
 const LazyNoMatch = lazy(() => import('./no-match'), 'NoMatch');
 
 export const Page = () => (
-  <StrictMode>
-    <Provider {...stores} >
-      <GlobalStyle />
-      {/* 
+  <Provider {...stores} >
+    <GlobalStyle />
+    {/* 
         some logo by design and topbar
       */}
-      <Router>
-        <Layout>
-          <PageHeader />
-          <ErrorCatcher>
-            {/* 
+    <Router>
+      <Layout>
+        <PageHeader />
+        <ErrorCatcher>
+          {/* 
             here should be some preloader instead of fallback text
           */}
-            <Suspense fallback="Loading...">
-              <Switch>
-                <Route path="/" exact>
-                  <MainPageContainer />
-                </Route>
+          <Suspense fallback="Loading...">
+            <Switch>
+              <Route path="/" exact>
+                <MainPageContainer />
+              </Route>
 
-                <Route>
-                  <LazyNoMatch />
-                </Route>
+              <Route>
+                <LazyNoMatch />
+              </Route>
 
-              </Switch>
-            </Suspense>
-          </ErrorCatcher>
-        </Layout>
-      </Router>
-    </Provider>
-  </StrictMode>
+            </Switch>
+          </Suspense>
+        </ErrorCatcher>
+      </Layout>
+    </Router>
+  </Provider>
 );
