@@ -13,13 +13,13 @@ export interface IAuthStore {
 export class AuthorizationStore implements IAuthStore {
   @observable private _isAuthorized: boolean = false;
 
-  @action
-  authorizeUser = () => {
+  @action.bound
+  authorizeUser() {
     this._isAuthorized = true;
   }
 
-  @action
-  logoutUser = () => {
+  @action.bound
+  logoutUser() {
     this._isAuthorized = false;
   }
 
