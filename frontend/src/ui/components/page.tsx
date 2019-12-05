@@ -1,17 +1,18 @@
-import React, { StrictMode, Suspense } from 'react';
+import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'mobx-react';
 import { stores } from 'stores';
 
-import { MainPageContainer } from 'ui/containers/main-page-container';
 import { PageHeader } from 'ui/components/top-navigation/header';
 
 import { ErrorCatcher } from 'ui/fragments/error-catcher';
 import { GlobalStyle } from 'ui/styles/global-styles';
 import { Layout } from 'ui/styles/main-layout-styles';
-import { lazy } from 'utils/lazy';
 
-const LazyNoMatch = lazy(() => import('./no-match'), 'NoMatch');
+import { getListOfLazyComponents } from 'utils/lazy';
+import { ScrollToTop } from 'utils/scroll-to-top';
+
+const LazyComponents = getListOfLazyComponents();
 
 export const Page = () => (
   <Provider {...stores} >
@@ -20,6 +21,7 @@ export const Page = () => (
         some logo by design and topbar
       */}
     <Router>
+      <ScrollToTop />
       <Layout>
         <PageHeader />
         <ErrorCatcher>
@@ -29,11 +31,47 @@ export const Page = () => (
           <Suspense fallback="Loading...">
             <Switch>
               <Route path="/" exact>
-                <MainPageContainer />
+                <LazyComponents.MainPage />
+              </Route>
+
+              <Route path="/authorization" >
+                <LazyComponents.Authorization />
+              </Route>
+
+              <Route path="/users">
+                <LazyComponents.UsersList />
+              </Route>
+
+              <Route path="/user/:id">
+                <LazyComponents.UserPage />
+              </Route>
+
+              <Route path="/settings">
+                <LazyComponents.SettingsPage />
+              </Route>
+
+              <Route path="/medias">
+                <LazyComponents.MediasPage />
+              </Route>
+
+              <Route path="uploadmedia">
+                <LazyComponents.MediasPage />
+              </Route>
+
+              <Route path="/events">
+                <LazyComponents.EventsPage />
+              </Route>
+
+              <Route path="/event/:id">
+                <LazyComponents.EventPage />
+              </Route>
+
+              <Route path="/createevent">
+                <LazyComponents.CreateEventPage />
               </Route>
 
               <Route>
-                <LazyNoMatch />
+                <LazyComponents.NoMatch />
               </Route>
 
             </Switch>
