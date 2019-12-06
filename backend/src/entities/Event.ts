@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose'
 
-const Schema = mongoose.Schema;
+const Schema = mongoose.Schema
 
 const ModelSchema = new Schema({
     status: {type: String},
@@ -8,6 +8,6 @@ const ModelSchema = new Schema({
     startDate: {type: Date},
     endDate: {type: Date},
     posterUrl: {type: String}
-});
+})
 
-const Model = mongoose.model('Event', ModelSchema);
+const Model = mongoose.model('Event', ModelSchema)

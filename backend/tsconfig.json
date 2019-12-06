@@ -13,7 +13,7 @@
     "baseUrl": "./src",
     "paths": {
       "@front/*": ["../frontend/dist"],
-      "@types/*": ["types/*"],
+      "@apptypes/*": ["types/*"],
       "@routes/*": ["routes/*"],
       "@entities/*": ["entities/*"],
       "@actions/*": ["dbActions/*"]

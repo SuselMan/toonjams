@@ -6,10 +6,12 @@
     "indent": [true, "spaces"],
     "jsdoc-format": true,
     "no-consecutive-blank-lines": true,
+    "object-literal-sort-keys": false,
+    "interface-name": false,
     "no-implicit-dependencies": [
       true,
       "dev",
-      ["@ctrls", "@schemas", "@config"]
+      ["@ctrls", "@schemas", "@config", "@front", "@apptypes", "@routes", "@entities", "@actions"]
     ],
     "no-internal-module": true,
     "no-null-keyword": true,
@@ -20,6 +22,9 @@
     "prefer-const": true,
     "quotemark": [true, "single", "avoid-escape"],
     "semicolon": [true, "never"],
+    "no-console": false,
+    "no-shadowed-variable": false,
+    "ordered-imports": false,
     "typedef-whitespace": [
       true,
       {

@@ -1,21 +1,51 @@
-import express from 'express';
-import * as userActions from '../../dbActions/user';
+import express, { Request, Response } from 'express'
+import { MongoError } from 'mongodb'
+import * as userActions from '@actions/user'
 
-const router = express.Router();
+const router = express.Router()
 
-router.post('/createUser', (req, res, next) => {
-    console.log('CREATE USED!');
+router.post('/createUser', (req: Request, res: Response, next) => {
     userActions.createUser(req.body)
-        .then((result) => {
-            console.log('result', result);
-            res.status(200).send('ok');
+        .then(() => {
+            res.status(200).send('ok')
         })
-        .catch((err: any) => {
-            console.log(err);
-            if (err.code == 11000) {
-                res.status(500).send("This username already exist")
+        .catch((err: MongoError) => {
+            if (err.code === 11000) {
+                res.status(500).send('This username already exist')
             }
-        });
-});
+            next(err)
+        })
+})
 
-export default router;
+router.post('/authorizeUser', (req: Request, res: Response, next) => {
+    userActions.checkUserCredentials(req.body)
+        .then((user) => {
+            if (user) {
+                res.status(200).send('ok')
+            } else {
+                next('Unexpected error: authorizeUser')
+            }
+        })
+        .catch((err: MongoError) => {
+            if (err.code === 11000) {
+                res.status(500).send('This username already exist')
+            }
+            next(err)
+        })
+})
+
+router.get('/getAuthorizedUser', (req: Request, res: Response, next) => {
+    if (req && req.session && req.session.user && req.session.user.id) {
+        userActions.checkSession(req.session.user.id)
+            .then((user) => {
+                res.status(200).send(user)
+            })
+            .catch( (e: MongoError) => {
+                next(e)
+            })
+    } else {
+        res.status(401).send('Has no session')
+    }
+})
+
+export default router
