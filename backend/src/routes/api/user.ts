@@ -20,7 +20,8 @@ router.post('/createUser', (req: Request, res: Response, next) => {
 router.post('/authorizeUser', (req: Request, res: Response, next) => {
     userActions.checkUserCredentials(req.body)
         .then((user) => {
-            if (user) {
+            if (user && user.login && req.session) {
+                req.session.user = {id: user._id, login: user.login}
                 res.status(200).send('ok')
             } else {
                 next('Unexpected error: authorizeUser')
@@ -29,8 +30,9 @@ router.post('/authorizeUser', (req: Request, res: Response, next) => {
         .catch((err: MongoError) => {
             if (err.code === 11000) {
                 res.status(500).send('This username already exist')
+            } else {
+                next(err)
             }
-            next(err)
         })
 })
 
