@@ -25,3 +25,8 @@
 5.  Run `npm run start` from backend derictory
 6. Open localhost:4000
 
+
+### Links
+1. DB Scheme-https://drive.google.com/file/d/1aJ527mkVGc3I5Ibyb52iqVdjzPIzgdKr/view?usp=sharing
+2. Pages scheme- https://drive.google.com/file/d/15-he-zK-hrhQPKBJaappDtXG1iEd4lh4/view?usp=sharing
+3. Figma- https://www.figma.com/file/QW49uaHGymAYFPt8JpfYmA/ToonJams?node-id=0%3A1
