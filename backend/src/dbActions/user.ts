@@ -15,18 +15,21 @@ export const createUser = ({login, password}: {login: string, password: string})
     return new User(user).save()
 }
 
-export const checkSession = (id: string): DocumentQuery< Document | null, Document> => {
+export const checkSession = (id: string): Promise<any> => {
     return User.findById(id)
+    .then((user) => {
+        return user ? {...user.toJSON(), password: undefined } : undefined
+    })
 }
 
-export function checkUserCredentials(userData: { login: string, password: string }): Promise<Document> {
+export function checkUserCredentials(userData: { login: string, password: string }): Promise<any> {
     return new Promise((resolve, reject) => {
         User
             .findOne({login: userData.login})
             .then((doc) => {
                 const user = doc ? doc.toJSON() : undefined
                 if (user && user.password === hash(userData.password)) {
-                    return resolve(user)
+                    return resolve({ ...user, password: undefined })
                 } else {
                     return reject('Wrong username or password')
                 }
