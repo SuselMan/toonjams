@@ -13,15 +13,23 @@ module.exports = (env, options) => ({
 		rules: [
 			{
 				test: /\.tsx?$/,
-				use: [ 'ts-loader' ],
+				use: ['ts-loader'],
 				exclude: /node_modules/
+			},
+			{
+				test: /.(jpg|gif|jpeg|png|svg|ttf|eot|otf|woff|woff2)$/,
+				oneOf: [
+					{
+						loader: 'file-loader?name=res/[name].[ext]'
+					}
+				]
 			}
 		]
 	},
 
 	resolve: {
-		modules: [ 'src', 'node_modules' ],
-		extensions: [ '.js', '.ts', '.tsx' ]
+		modules: ['src', 'node_modules'],
+		extensions: ['.js', '.ts', '.tsx']
 	},
 
 	plugins: [

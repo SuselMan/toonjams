@@ -17,5 +17,9 @@
     ],
     "sourceMap": true,
     "resolveJsonModule": true
-  }
+  },
+  "include": [
+    "src",
+    "./typings.d.ts"
+  ]
 }
