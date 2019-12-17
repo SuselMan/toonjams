@@ -19,6 +19,10 @@ export const NavigationItem = styled.li`
 
   a {
     text-decoration:none;
+
+    font-size: 16px;
+
+    color:#323232;
   }
 
   &:last-child {

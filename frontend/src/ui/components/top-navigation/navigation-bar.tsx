@@ -18,6 +18,10 @@ export const NavigationBar = () => (
         <Link to="/users">Users</Link>
       </NavigationItem>
 
+      <NavigationItem>
+        <Link to="/medias">Works</Link>
+      </NavigationItem>
+
     </NavigationList>
   </Navigation>
 );

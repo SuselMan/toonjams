@@ -19,9 +19,9 @@ const UserProfileComponent = (UserProfileProps) => {
   const data: IAuthStore = UserProfileProps.authorizationStore!;
   return (
     <>
-      <h1>{data.authorizationStatus === true ? 'authorized' : 'nonauthorized'}</h1>
+      {/* <h1>{data.authorizationStatus === true ? 'authorized' : 'nonauthorized'}</h1>
       <button onClick={data.authorizeUser}>authorize</button>
-      <button onClick={data.logoutUser}>logout</button>
+      <button onClick={data.logoutUser}>logout</button> */}
     </>
   )
 };
