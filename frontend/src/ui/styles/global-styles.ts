@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import { defaultBackgroundColor, defaultTextColor } from './colors';
 
 export const GlobalStyle = createGlobalStyle`
   html {
@@ -13,6 +14,9 @@ export const GlobalStyle = createGlobalStyle`
   body {
     display:flex;
     flex-direction: column;
+
+    background-color: ${defaultBackgroundColor};
+    color: ${defaultTextColor};
 
     margin:0;
     padding: 0;
