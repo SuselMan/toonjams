@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { defaultTextColor } from 'ui/styles/colors';
 
 export const Navigation = styled.nav`
 
@@ -22,7 +23,7 @@ export const NavigationItem = styled.li`
 
     font-size: 16px;
 
-    color:#323232;
+    color: ${defaultTextColor};
   }
 
   &:last-child {
