@@ -1,6 +1,8 @@
 import express from 'express'
 
 import user from './api/user'
+import event from './api/event'
+import media from './api/media'
 
 class Routes {
     constructor(app: any) {
@@ -9,6 +11,8 @@ class Routes {
         // @ts-ignore
         app.use(express.static(global.fronendRoot))
         app.use('/api/user', user)
+        app.use('/api/event', event)
+        app.use('/api/media', media)
 
         app.get('/favicon.ico', (req: any, res: any) => {
             // @ts-ignore
