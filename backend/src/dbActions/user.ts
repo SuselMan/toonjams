@@ -6,7 +6,7 @@ import '../entities/User'
 
 const User = mongoose.model('User')
 
-export const createUser = ({login, password}: {login: string, password: string}): Promise<any> => {
+export const createUser = ({login, password}: UserModel): Promise<any> => {
     const user = {
         login,
         password: hash(password),
@@ -15,10 +15,18 @@ export const createUser = ({login, password}: {login: string, password: string})
     return new User(user).save()
 }
 
-export const checkSession = (id: string): Promise<any> => {
+export const getUser = (id: string): Promise<any> => {
     return User.findById(id)
     .then((user) => {
         return user ? {...user.toJSON(), password: undefined } : undefined
+    })
+}
+
+export const getUsers = (query: any): Promise<any> => {
+    // TODO: add query filters and return metadata only
+    return User.find()
+    .then((users) => {
+        return users && users.length ? users.map((user) => ({...user.toJSON(), password: undefined })) : undefined
     })
 }
 

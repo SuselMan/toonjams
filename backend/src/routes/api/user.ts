@@ -39,7 +39,22 @@ router.post('/authorizeUser', (req: Request, res: Response, next) => {
 
 router.get('/getAuthorizedUser', (req: Request, res: Response, next) => {
     if (req && req.session && req.session.user && req.session.user.id) {
-        userActions.checkSession(req.session.user.id)
+        userActions.getUser(req.session.user.id)
+            .then((user) => {
+                res.status(200).send(user)
+            })
+            .catch( (e: MongoError) => {
+                next(e)
+            })
+    } else {
+        res.status(401).send('Has no session')
+    }
+})
+
+router.get('/getUser/:id', (req: Request, res: Response, next) => {
+    if (req && req.session && req.session.user && req.session.user.id) {
+        userActions.getUser(req.session.user.id)
+            .then(() => userActions.getUser(req.params.id))
             .then((user) => {
                 res.status(200).send(user)
             })
@@ -58,6 +73,16 @@ router.get('/logoutUser', (req: Request, res: Response, next) => {
     } else {
         res.status(401).send('User is not logged in')
     }
+})
+
+router.get('/getUsers', (req: Request, res: Response, next) => {
+    userActions.getUsers(req.query)
+        .then((users) => {
+            res.status(200).send(users)
+        })
+        .catch( (e: MongoError) => {
+            next(e)
+        })
 })
 
 export default router
