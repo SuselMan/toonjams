@@ -10,6 +10,7 @@ router.post('/createUser', (req: Request, res: Response, next) => {
             res.status(200).send('ok')
         })
         .catch((err: MongoError) => {
+            res.status(500).send('This username already exist')
             if (err.code === 11000) {
                 res.status(500).send('This username already exist')
             }
@@ -21,7 +22,7 @@ router.post('/authorizeUser', (req: Request, res: Response, next) => {
     userActions.checkUserCredentials(req.body)
         .then((user) => {
             if (user && user.login && req.session) {
-                req.session.user = {id: user._id, login: user.login}
+                req.session.user = { id: user._id, login: user.login }
                 res.status(200).send('ok')
             } else {
                 next('Unexpected error: authorizeUser')
@@ -57,11 +58,20 @@ router.get('/getUser/:id', (req: Request, res: Response, next) => {
             .then((user) => {
                 res.status(200).send(user)
             })
-            .catch( (e: MongoError) => {
+            .catch((e: MongoError) => {
                 next(e)
             })
     } else {
         res.status(401).send('Has no session')
+    }
+})
+
+router.get('/logoutUser', (req: Request, res: Response, next) => {
+    if (req && req.session && req.session.user && req.session.user.id) {
+        req.session = undefined
+        res.status(200).send('ok')
+    } else {
+        res.status(401).send('User is not logged in')
     }
 })
 

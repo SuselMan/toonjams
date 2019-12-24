@@ -32,5 +32,4 @@ import { Page } from 'ui/components/page';
 //     .catch((e) => {
 //         console.log('Nope', e)
 //     })
-
 render(<Page />, document.getElementById('app'));
