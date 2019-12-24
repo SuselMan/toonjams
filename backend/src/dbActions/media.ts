@@ -10,7 +10,7 @@ const User = mongoose.model('User')
 
 export const createMedia = ({url, description, event, user}: MediaModel): Promise<any> => {
     // TODO: add user is admin checking
-    if (!event || !user) { throw new Error('Event and User are required parameters') }
+    if (!event || !user || !url) { throw new Error('Event, Url and User are required parameters') }
     const obj = {url,
         description,
         event,

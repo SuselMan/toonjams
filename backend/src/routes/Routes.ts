@@ -13,7 +13,7 @@ class Routes {
         if (!app) { throw new Error('Express app must be provided') }
         // TODO: add this ignore to config
         // @ts-ignore
-        app.use(express.static(global.fronendRoot))
+        app.use(express.static(global.frontendRoot))
         app.use('/api/user', user)
         app.use('/api/event', event)
         app.use('/api/media', media)
@@ -33,7 +33,7 @@ class Routes {
 
         app.get('*', (req: any, res: any) => {
             // @ts-ignore
-            res.sendFile(global.fronendRoot + '/index.html')
+            res.sendFile(global.frontendRoot + '/index.html')
         })
     }
 }

@@ -13,7 +13,7 @@ global.appRoot = path.resolve(__dirname)
 // @ts-ignore
 global.uploadsRoot = path.resolve(__dirname + '../../uploads')
 // @ts-ignore
-global.fronendRoot = path.resolve(__dirname + '../../../frontend/dist')
+global.frontendRoot = path.resolve(__dirname + '../../../frontend/dist')
 
 const MongoStore = connectMongo(session)
 
