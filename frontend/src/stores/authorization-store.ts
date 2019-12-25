@@ -53,4 +53,5 @@ class AuthorizationStore implements IAuthorizationStore {
 
 }
 
-export const _authorizationStore = new AuthorizationStore(AuthorizationAPI) as AuthorizationStore;
+const _authorizationStore = new AuthorizationStore(AuthorizationAPI);
+export default _authorizationStore;
