@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { ComponentClass, FunctionComponent } from 'react';
 import { Redirect } from 'react-router';
 import { observer, inject } from 'mobx-react'
 
-export const AuthRelocated = (WrappedComponent, relocateValue: boolean) => {
+/**
+ * Auto relocate to main page insted of given component if relocateValue matches to auth status
+ * @param WrappedComponent React/Functional Component which connected with authorization status
+ * @param relocateValue Value when we should relocate to main page insted of given component
+ */
+export const AuthRelocated = (WrappedComponent: ComponentClass | FunctionComponent, relocateValue: boolean) => {
   const AuthenticatedComponent = (uprops) => {
     const authorizationStore = uprops.authorizationStore!;
     return (
