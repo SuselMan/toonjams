@@ -1,6 +1,6 @@
 
-interface IApi {
-  call<T>(method: string, params?: object): Promise<T>;
+export interface IApi {
+  call<T>(method: string, requestType: string, params?: object): Promise<ApiResponse<T>>
 }
 
 export enum REQUEST_TYPE {
@@ -8,12 +8,12 @@ export enum REQUEST_TYPE {
   GET = 'GET'
 }
 
-type ApiResponse<T> = {
+export type ApiResponse<T> = {
   code: number;
   response: T;
 }
 
-class Api {
+class Api implements IApi {
 
   call<T>(method: string, requestType: string = REQUEST_TYPE.GET, params?: object): Promise<ApiResponse<T>> {
     const xhr = this._createApiXhr(method, requestType);
@@ -41,7 +41,7 @@ class Api {
               response: xhr.response
             });
           } else {
-            reject(new Error(xhr.statusText + xhr.responseText));
+            reject({ status: xhr.statusText, response: xhr.responseText });
           }
         }
       }

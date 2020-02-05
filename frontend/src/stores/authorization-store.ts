@@ -5,12 +5,6 @@
 import { observable, action, computed } from 'mobx';
 import AuthorizationAPI, { IAuthorization } from 'core/authorization-api';
 
-export interface IAuthStore {
-  authorizationStatus: boolean;
-  authorizeUser: () => void;
-  logoutUser: () => void;
-}
-
 export interface IAuthorizationStore {
   authorizationStatus: boolean;
   authorizeUser: (login: string, password: string) => Promise<any>;
@@ -29,17 +23,17 @@ class AuthorizationStore implements IAuthorizationStore {
 
   @action.bound
   authorizeUser(login: string, password: string) {
-    return this._authorizationApi.authorizeUser(login, password).then(() => this._isAuthorized = true).catch(e => console.log('authoprize user error: ', e))
+    return this._authorizationApi.authorizeUser(login, password).then(() => this._isAuthorized = true);
   }
 
   @action.bound
   createUser(login: string, password: string) {
-    return this._authorizationApi.createUser(login, password).catch((e) => console.log('create user error: ', e))
+    return this._authorizationApi.createUser(login, password);
   }
 
   @action.bound
   logoutUser() {
-    return this._authorizationApi.logoutUser().then(() => this._isAuthorized = false);
+    return this._authorizationApi.logoutUser().then(() => this._setAuthorizationStatus(false));
   }
 
   @computed
