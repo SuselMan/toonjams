@@ -15,7 +15,7 @@ function lazy<T extends { [V in K]: ComponentType }, K extends keyof T>(
 
 const NoMatch = lazy(() => import('ui/components/no-match'), 'NoMatch');
 
-const Authorization = lazy(() => import('ui/components/authorization/authorization-page-container'), 'AuthorizationPageContainer');
+const Authorization = lazy(() => import('ui/components/authorization/authorization-page-container'), 'AuthorizationPageWrapped');
 const MainPage = lazy(() => import('ui/components/main/main-page-container'), 'MainPageContainer');
 
 const UsersList = lazy(() => import('ui/components/user/users-list-container'), 'UsersListContainer');

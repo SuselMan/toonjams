@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { Header, HeaderLeftPart, HeaderRightPart, HeaderLogo } from 'ui/styles/top-navigation/header-styles';
 import { NavigationBar } from './navigation-bar';
-import { UserProfile } from './user-profile';
+import { Link } from 'react-router-dom';
 
 import Logo from 'res/logo.png'
 
@@ -12,7 +12,8 @@ export const PageHeader = memo(() => (
     </HeaderLeftPart>
     <HeaderRightPart>
       <NavigationBar />
-      <UserProfile />
+      <Link to="/authorization">Authorization</Link>
+      {/* <UserProfile /> */}
     </HeaderRightPart>
   </Header>
 ))

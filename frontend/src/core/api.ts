@@ -1,6 +1,6 @@
 
-interface IApi {
-  call<T>(method: string, params?: object): Promise<T>;
+export interface IApi {
+  call<T>(method: string, requestType: string, params?: object): Promise<ApiResponse<T>>
 }
 
 export enum REQUEST_TYPE {
@@ -8,9 +8,14 @@ export enum REQUEST_TYPE {
   GET = 'GET'
 }
 
-class Api {
+export type ApiResponse<T> = {
+  code: number;
+  response: T;
+}
 
-  call<T>(method: string, requestType: string = REQUEST_TYPE.GET, params?: object): Promise<T> {
+class Api implements IApi {
+
+  call<T>(method: string, requestType: string = REQUEST_TYPE.GET, params?: object): Promise<ApiResponse<T>> {
     const xhr = this._createApiXhr(method, requestType);
     xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
     xhr.send(JSON.stringify(params) || '');
@@ -25,17 +30,18 @@ class Api {
     return xhr;
   }
 
-  private _createPromiseFromXhr<T>(xhr: XMLHttpRequest): Promise<T> {
+  private _createPromiseFromXhr<T>(xhr: XMLHttpRequest): Promise<ApiResponse<T>> {
     return new Promise((resolve, reject) => {
       xhr.onreadystatechange = () => {
         if (xhr.readyState === XMLHttpRequest.DONE) {
-          console.log('xhr ready: ', xhr);
+          console.log('xhr promise ready', xhr);
           if (xhr.status === 200) {
-            console.log('xhr completed: ', xhr);
-            // parse json request here
-            resolve();
+            resolve({
+              code: xhr.status,
+              response: xhr.response
+            });
           } else {
-            reject(new Error(xhr.statusText + xhr.responseText));
+            reject({ status: xhr.statusText, response: xhr.responseText });
           }
         }
       }
